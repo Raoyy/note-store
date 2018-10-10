@@ -1,0 +1,7 @@
+$ mkdir learngit    //创建文件夹
+$ cd learngit        //进入该文件夹
+$ pwd                 //查看当前目录
+/Users/michael/learngit
+
+$ git init                   //创建git管理仓库
+Initialized empty Git repository in /Users/michael/learngit/.git/
