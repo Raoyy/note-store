@@ -56,7 +56,7 @@ $ ssh-keygen -t rsa -C "youremail@example.com"      //创建本地ssh key，若�
 
 $ git remote add origin git@github.com:Raoyy/execited.git    //关联一个远程库
 $ git push -u origin master      //-u在第一次提交时使用，可以把本地仓库与远程关联，以后提交就可以简化如下
-$ git push origin master
+$ git push origin master          //可以直接简写为git push
 
 $ git add 文件夹/            //添加整个文件夹及内容
 
