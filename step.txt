@@ -49,3 +49,9 @@ $ rm test.txt        //删除文件（删除的是工作区的文件，即本地
 $ git rm test.txt        //将删除文件添加到工作区（若本地未删除此文件，则会删除本地文件），此时想要恢复本地文件，需要先git reset HEAD <file>，然后再git checkout -- <file>
 
 $ git checkout -- test.txt           //误删除后，重新加载版本库中文件到工作区
+
+$ ssh-keygen -t rsa -C "youremail@example.com"      //创建本地ssh key，若有则无需执行
+
+$ git remote add origin git@github.com:Raoyy/execited.git    //远程提交
+$ git push -u origin master      //-u在第一次提交时使用，可以把本地仓库与远程关联，以后提交就可以简化如下
+$ git push origin master
