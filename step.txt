@@ -23,4 +23,6 @@ $ git add testFile1.txt testFile2.txt            //一次性添加多个文件
 $ git status     //查看当前目录下有哪些文件有修改
 
 $ git diff ***.txt      //查看文件做了哪些修改
+关于git diff 无输出问题：
+
 
