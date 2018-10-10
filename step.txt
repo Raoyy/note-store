@@ -26,6 +26,8 @@ $ git diff ***.txt      //查看文件做了哪些修改
 关于git diff 无输出问题：
 比较本地文件与最新版本，若无变化，则无输出
 
+$ git log --pretty=oneline               //查看版本号（后缀部分用于把版本号集成于一行）
+
 $ git reset --hard HEAD^         //版本回退（向上回退一个版本），HEAD^^（上上个版本），HEAD~100即向上回退100个版本
 HEAD is now at e475afc add distributed
 
