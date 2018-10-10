@@ -43,3 +43,9 @@ $ git reflog                   //查看版本历史记录，commit id
 $ git checkout -- file            //可以丢弃工作区的修改,加入暂存区后无效
 
 $ git reset HEAD <file>             //可以把暂存区的修改撤销掉（unstage），重新放回工作区
+
+$ rm test.txt        //删除文件（删除的是工作区的文件，即本地文件）
+
+$ git rm test.txt        //将删除文件添加到工作区（若本地未删除此文件，则会删除本地文件），此时想要恢复本地文件，需要先git reset HEAD <file>，然后再git checkout -- <file>
+
+$ git checkout -- test.txt           //误删除后，重新加载版本库中文件到工作区
