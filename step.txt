@@ -5,3 +5,16 @@ $ pwd                 //查看当前目录
 
 $ git init                   //创建git管理仓库
 Initialized empty Git repository in /Users/michael/learngit/.git/
+
+$ git add readme.txt          //添加文件
+
+$ git commit -m "wrote a readme file"                    //提交文件，-m后为提交说明 
+[master (root-commit) eaadf4e] wrote a readme file
+ 1 file changed, 2 insertions(+)
+ create mode 100644 readme.txt
+ 
+$ git add testFile1.txt testFile2.txt            //一次性添加多个文件
+
+$ git status     //查看当前目录下有哪些文件有修改
+
+$ git diff ***.txt      //查看文件做了哪些修改
