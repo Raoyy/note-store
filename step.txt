@@ -24,7 +24,7 @@ $ git status     //查看当前目录下有哪些文件有修改
 
 $ git diff ***.txt      //查看文件做了哪些修改
 关于git diff 无输出问题：
-比较本地文件与最新版本，若无变化，则无输出
+比较工作区与版本库最新版本，若无变化，则无输出
 
 $ git log --pretty=oneline               //查看版本号（后缀部分用于把版本号集成于一行）
 
@@ -35,3 +35,5 @@ $ git reset --hard 1094a          //去到固定版本（版本号无需输全�
 HEAD is now at 83b0afe append GPL
 
 $ cat readme.txt               //查看文件内容
+
+$ git reflog                   //查看版本历史记录，commit id
