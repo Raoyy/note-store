@@ -26,6 +26,8 @@ $ git diff ***.txt      //查看文件做了哪些修改
 关于git diff 无输出问题：
 比较工作区与版本库最新版本，若无变化，则无输出
 
+$ git diff HEAD -- readme.txt               //命令可以查看工作区和版本库里面最新版本的区别
+
 $ git log --pretty=oneline               //查看版本号（后缀部分用于把版本号集成于一行）
 
 $ git reset --hard HEAD^         //版本回退（向上回退一个版本），HEAD^^（上上个版本），HEAD~100即向上回退100个版本
@@ -37,3 +39,5 @@ HEAD is now at 83b0afe append GPL
 $ cat readme.txt               //查看文件内容
 
 $ git reflog                   //查看版本历史记录，commit id
+
+$ git checkout -- file            //可以丢弃工作区的修改
