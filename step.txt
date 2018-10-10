@@ -40,4 +40,6 @@ $ cat readme.txt               //查看文件内容
 
 $ git reflog                   //查看版本历史记录，commit id
 
-$ git checkout -- file            //可以丢弃工作区的修改
+$ git checkout -- file            //可以丢弃工作区的修改,加入暂存区后无效
+
+$ git reset HEAD <file>             //可以把暂存区的修改撤销掉（unstage），重新放回工作区
