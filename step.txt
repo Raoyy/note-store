@@ -55,6 +55,8 @@ $ git checkout -- test.txt           //误删除后，重新加载版本库中�
 $ ssh-keygen -t rsa -C "youremail@example.com"      //创建本地ssh key，若有则无需执行
 
 $ git remote add origin git@github.com:Raoyy/execited.git    //关联一个远程库
+fatal: remote origin already exists.    //出现该错误时，执行$ git remote rm origin先删除，再重新关联
+
 $ git push -u origin master      //-u在第一次提交时使用，可以把本地仓库与远程关联，以后提交就可以简化如下
 $ git push origin master          //可以直接简写为git push
 
