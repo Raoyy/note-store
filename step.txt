@@ -70,6 +70,8 @@ git add .                   //提交新文件(new)和被修改(modified)文件�
 
 git中出现>符号 可以ctrl+d退出
 
+2323232322
+
 git 忽略不必要的提交文件：
 1.首先在仓库中创建隐藏文件“.gitignore”,选中本地仓库，右击“Git Bash Here”,然后执行如下命令：
 touch .gitignore
