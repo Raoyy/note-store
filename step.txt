@@ -70,6 +70,7 @@ git add .                   //提交新文件(new)和被修改(modified)文件�
 
 git中出现>符号 可以ctrl+d退出
 
+<<<<<<< HEAD
 $ git clone git@github.com:michaelliao/gitskills.git                  //从远程库克隆到本地
 
 $ git fetch origin master      //从远程origin仓库的master主分支更新最新的版本到origin/master分支上。
@@ -77,6 +78,9 @@ $ git fetch origin master      //从远程origin仓库的master主分支更新�
 $ git log -p master..origin/master    //比对下当前本地master分支和origin/master分支的区别
 
 $ git merge origin/master             //把origin/master分支上的内容合并到本地master分支//
+=======
+2323232322
+>>>>>>> origin/master
 
 git 忽略不必要的提交文件：
 1.首先在仓库中创建隐藏文件“.gitignore”,选中本地仓库，右击“Git Bash Here”,然后执行如下命令：
