@@ -109,6 +109,8 @@ Updating d46f35e..b17d20e
 Fast-forward
  readme.txt | 1 +
  1 file changed, 1 insertion(+)
+ 
+$ git log --graph                              //查看分支合并图
 
 测试一波假数据
  
