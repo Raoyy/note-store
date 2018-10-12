@@ -116,8 +116,20 @@ $ git log --graph                              //查看分支合并图（git log
 $ git branch -d dev                            //删除分支
 Deleted branch dev (was b17d20e).
 
-$ git merge --no-ff -m "merge with no-ff" dev         //禁用Fast forward模式，Git就会在merge时生成一个新的commit（分支历史上就可以看出分支信息）。   
+//禁用Fast forward模式，Git就会在merge时生成一个新的commit，这样，从分支历史上就可以看出分支信息,合并要创建一个新的commit，所以加上-m参数，把commit描述写进去。
+$ git merge --no-ff -m "merge with no-ff" dev   
 
+$ git stash                                     //将工作区内容隐匿
+Saved working directory and index state WIP on dev: f52c633 add merge
+
+$ git stash list                  //查看隐匿区内容
+
+取消暂存内容：
+方法一：
+$ git stash apply                 //恢复，但是恢复后，藏匿内容并不删除
+$ git stash drop                  //删除隐匿区内容
+方法二：
+$ git stash pop                   //恢复的同时把藏匿内容也删了
 
 
 git 忽略不必要的提交文件：
