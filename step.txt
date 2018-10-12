@@ -83,6 +83,39 @@ $:git fetch --all
 $:git reset --hard origin/master
 $:git fetch
 
+
+
+创建新的分支dev：
+$ git checkout -b dev
+Switched to a new branch 'dev'
+
+git checkout命令加上-b参数表示创建并切换，相当于：
+$ git branch dev                             //创建分支
+$ git checkout dev                           //切换分支
+Switched to branch 'dev'
+
+然后，用git branch命令查看当前分支：
+$ git branch                                 //查看分支
+* dev
+  master
+  
+dev分支的工作完成，我们就可以切换回master分支：
+$ git checkout master
+Switched to branch 'master'
+
+把dev分支的工作成果合并到master分支上：
+$ git merge dev                                //合并分支
+Updating d46f35e..b17d20e
+Fast-forward
+ readme.txt | 1 +
+ 1 file changed, 1 insertion(+)
+
+删除dev分支
+$ git branch -d dev                            //删除分支
+Deleted branch dev (was b17d20e).
+
+
+
 git 忽略不必要的提交文件：
 1.首先在仓库中创建隐藏文件“.gitignore”,选中本地仓库，右击“Git Bash Here”,然后执行如下命令：
 touch .gitignore
