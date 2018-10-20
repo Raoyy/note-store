@@ -54,7 +54,7 @@ $ git checkout -- test.txt           //误删除后，重新加载版本库中�
 
 $ ssh-keygen -t rsa -C "youremail@example.com"      //创建本地ssh key，若有则无需执行
 
-$ git remote add origin git@github.com:Raoyy/execited.git    //关联一个远程库
+$ git remote add origin git@github.com:Raoyy/execited.git    //关联一个远程库（origin为远程库名，一般默认取此名）
 fatal: remote origin already exists.    //出现该错误时，执行$ git remote rm origin先删除，再重新关联
 
 $ git push -u origin master      //-u在第一次提交时使用，可以把本地仓库与远程关联，以后提交就可以简化如下
@@ -116,6 +116,8 @@ $ git log --graph                              //查看分支合并图（git log
 $ git branch -d dev                            //删除分支
 Deleted branch dev (was b17d20e).
 
+$ git branch -D <name>                           //强行删除分支
+
 //禁用Fast forward模式，Git就会在merge时生成一个新的commit，这样，从分支历史上就可以看出分支信息,合并要创建一个新的commit，所以加上-m参数，把commit描述写进去。
 $ git merge --no-ff -m "merge with no-ff" dev   
 
@@ -130,6 +132,26 @@ $ git stash apply                 //恢复，但是恢复后，藏匿内容并�
 $ git stash drop                  //删除隐匿区内容
 方法二：
 $ git stash pop                   //恢复的同时把藏匿内容也删了
+
+$ git remote                      //查看远程库信息
+origin
+
+$ git remote -v                   //查看更加详细的信息
+origin  git@github.com:michaelliao/learngit.git (fetch)
+origin  git@github.com:michaelliao/learngit.git (push)
+
+$ git push origin master          //推送分支，如果要推送其他分支，比如dev，就改成：$ git push origin dev
+
+多人协作：
+$ git push origin <branch-name>            //推送自己的修改
+
+$ git pull                                //如果推送失败，则因为远程分支比你的本地更新，先需要用git pull 试图合并;
+
+如果合并有冲突，则解决冲突，并在本地提交;
+
+没有冲突或者解决掉冲突后，再用git push origin <branch-name>推送就能成功！
+
+如果git pull提示no tracking information，则说明本地分支和远程分支的链接关系没有创建，用命令git branch --set-upstream-to <branch-name> origin/<branch-name>。
 
 
 git 忽略不必要的提交文件：
