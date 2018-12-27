@@ -12,7 +12,7 @@
 	});
 
 4、支线程中接收参数
-	ipcRenderer.on('launchInfo', function(event, message) {
+	ipcRenderer.on('launchInfo', (event, message) => {
 	  console.log(message);
     	});
 message:
@@ -21,4 +21,72 @@ message:
 			'C:\Users\Administrator\AppData\Local\Programs\recall-editor\记乎app.exe',
 			'jihuapp:id=2333333&name=ryy',
 		]
-	}
+	 }
+
+5、模拟吸附右边可设置参数
+  win = new BrowserWindow({
+    x: size.width - 1024,
+    y: 0,
+    width: 1024,
+    height: size.height,
+    resizable: false,     // 不可拉动大小
+    movable: false,       // 不可移动
+    frame: false,         // 关闭边框
+    alwaysOnTop: true,    // 是否始终在其他窗口之上
+  });
+
+6、重设窗体
+主线程：
+  ipcMain.on('move-window', (event, arg: Rectangle) => {
+    win.setBounds(arg, true);  // 第二个参数为动画，mac支持
+  });
+渲染线程：
+
+  执行函数中推送窗口事件： 
+  ipcRenderer.send('move-window', this.bounds);
+
+  窗口失去焦点事件：
+  ipcMain.on('blur-focus', () => {
+    win.blur();
+  });
+
+7、获取主线程中窗体大小对象：
+主线程：
+  ipcMain.on('get-size', (event) => {
+      event.returnValue  = size;
+  });
+渲染线程：
+  this.size = ipcRenderer.sendSync('get-size');
+
+  bounds类型： 
+  {
+    x: this.size.width - 600,
+    y: 0,
+    width: 1024,
+    height: this.size.height,
+  }
+
+8、启动一个单例应用
+
+const gotTheLock = app.requestSingleInstanceLock();
+
+if (!gotTheLock) {
+  app.quit();
+} else {
+  app.on('second-instance', (event, commandLine, workingDirectory) => {
+    // Someone tried to run a second instance, we should focus our window.
+    if (win) {
+      if (win.isMinimized()) {
+        win.restore();
+      }
+      win.focus();
+
+      // 启动第二个单例应用时的参数
+      if (commandLine) {
+        win.webContents.send('launchInfo', {'commandLine': commandLine});
+      }
+    }
+  });
+
+  app.on('ready', createWindow);
+}
