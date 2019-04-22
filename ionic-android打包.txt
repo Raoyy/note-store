@@ -1,0 +1,34 @@
+1、生成未签名的apk文件
+  ionic cordova build android --prod --release
+
+  生成目录：platforms/android/build/outputs/apk/release/
+
+
+2、生成签名文件
+  keytool -genkey -v -keystore my-release-key.keystore -alias alias_name -keyalg RSA -keysize 2048 -validity 10000
+
+  my-release-key.keystore 生成的文件名 alias_name 别名
+  步骤：
+  输入密钥库口令（下一步试用该文件有用到）
+  您的名字与姓氏是什么？
+  您的组织单位名称是什么？
+  ... 
+  CN=***, OU=*** ... 是否正确？ （输入 y）
+  如果和密钥库口令相同，按回车 （直接回车）
+  
+
+3、对apk文件进行签名
+  将在根目录下生成的 my-release-key.keystore 复制至 platforms/android/build/outputs/apk/release/
+  将dos执行根目录移动至 platforms/android/build/outputs/apk/release/
+  执行 jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.keystore app-release-unsigned.apk alias_name
+  输入密钥库的密码短语： （输入第二步中的密钥库口令）
+
+4、使用zipalign优化apk
+  找到 SDK目录下 zipalign.exe 文件， 目录例：E:\android-sdk-windows\build-tools\28.0.3  （28.0.3为版本号）
+  执行:
+  E:\android-sdk-windows\build-tools\28.0.3\zipalign -v 4 app-release-unsigned.apk jihu.apk
+
+5、查看签名
+  将签名后apk解压  
+  在解压后目录执行 keytool -printcert -file META-INF/*.RSA
+  
