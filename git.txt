@@ -196,6 +196,18 @@ Icon?  
 ehthumbs.db  
 Thumbs.db
 
+// 关联git仓库
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin git@github.com:Raoyy/my-reader.git
+git push -u origin main
+
+git remote add origin git@github.com:Raoyy/my-reader.git
+git branch -M main
+git push -u origin main
+
 备注：
 /target/ ：过滤文件设置，表示过滤这个文件夹
 *.mdb  ，*.ldb  ，*.sln 表示过滤某种类型的文件
