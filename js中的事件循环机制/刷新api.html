@@ -1,0 +1,24 @@
+<div id="title" style="width: 100px;height: 100px;"></div>
+
+<script>
+    const wrapper = document.querySelector("#title");
+    let color = "red";
+    let count = 0;
+
+    function rF() {
+        count++;
+        if (count < 60) {
+            const a = requestAnimationFrame(() => {
+                if (color === "red") {
+                    wrapper.style.background = "blue";
+                    color = "blue";
+                } else {
+                    wrapper.style.background = "red";
+                    color = "red";
+                }
+                rF();
+            })
+        }
+    }
+    rF();
+</script>

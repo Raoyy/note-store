@@ -1,0 +1,353 @@
+
+
+换行符自动转换
+
+ CRLF (\r\n)  与 LF (\n) 的区别
+默认 CRLF 的优势​​
+​​系统兼容性​​：Windows 原生文件系统（如 NTFS）和大多数本地应用（如记事本、Office）默认使用 CRLF，保存和读取时无需额外转换，避免潜在兼容性问题。
+​​历史传统​​：CRLF 是 Windows 从 DOS 继承的标准，符合传统 Windows 应用的预期行为
+
+使用 LF 的场景​​
+​​跨平台开发​​：若项目需在 Unix/Linux 或 Mac 系统上运行，LF（\n）是更通用的选择。Git 默认会将 CRLF 转换为 LF 提交，避免跨平台换行符冲突。
+​​现代工具链​​：VSCode、VS2022 等主流编辑器支持 LF，并可通过配置统一换行符风格，减少团队协作中的格式问题。
+​​存储效率​​：LF 占用更少存储空间（1 字节 vs CRLF 的 2 字节），对大型项目或频繁读写的场景更友好
+
+实践建议​​
+若项目仅限 Windows 环境使用，或依赖传统 Windows 工具链（如旧版 Office），保持默认 CRLF 更稳妥。
+跨平台或混合环境开发，使用LF。
+
+如何解决自动转换问题
+1、检查项目级配置文件​​
+打开项目根目录，检查是否存在以下文件：
+.editorconfig（检查 end_of_line 字段）
+.prettierrc（检查 endOfLine 字段）
+.eslintrc.js（检查 prettier/prettier 规则）
+若存在相关配置，可将其调整为 crlf、lf 或直接删除该字段以使用 VSCode 全局设置。
+
+2、调整 Git 配置​​
+在终端执行以下命令，Git 自动转换换行符：
+git config --global core.autocrlf true
+
+3、 VSCode 设置​​
+打开 VSCode 设置，搜索 eol，可切换 \r\n（CRLF）或 \n（LF）
+
+git > 项目配置 > vscode
+
+
+------------------------------------------------------
+
+Object.freeze 在 Vue 中的用途与优化原理​​
+Object.freeze 是 JavaScript 的一个原生方法，用于冻结对象，使其​​不可扩展、不可删除、不可修改属性​​。
+在 Vue 中，合理使用它可以显著优化性能，尤其是在处理​​不需要响应式的静态数据​​时。
+
+Object.freeze 的作用​​
+​​禁止修改对象​​：冻结后，对象的属性无法被添加、删除或修改（严格模式下会报错）。
+​​浅冻结​​：仅冻结对象的第一层属性，嵌套对象的属性仍可修改（需递归冻结深层属性）。
+​​性能优化​​：Vue 会对冻结对象​​跳过响应式处理​​，减少不必要的 getter/setter 劫持。
+
+示例：
+const staticData = Object.freeze({ a: 1, b: 2 });
+const state = reactive({
+  staticData, // 不会变成响应式
+  dynamicData: { c: 3 }, // 响应式
+});
+
+------------------------------------------------------
+
+​​打开 VSCode 设置​​：
+快捷键 Ctrl + ,（Windows/Linux）或 Cmd + ,（Mac）。
+或者点击左下角齿轮图标 → Settings。
+​​搜索 terminal.integrated.profiles.windows​​（如果是 Windows）：
+找到 Terminal > Integrated: Profiles（Windows）或 Terminal > Integrated: Profiles: Linux/Mac（Linux/Mac）。
+点击 Edit in settings.json（编辑 JSON 配置文件）。
+​​修改终端配置​​（以 PowerShell 为例）：
+
+加上："args": ["-NoExit", "-Command", "chcp 65001"]
+
+{
+    "terminal.integrated.automationProfile.windows": null,
+    "terminal.integrated.profiles.windows": {
+        "PowerShell": {
+            "source": "PowerShell",
+            "icon": "terminal-powershell",
+            "args": ["-NoExit", "-Command", "chcp 65001"]
+        },
+        "Command Prompt": {
+            "path": [
+                "${env:windir}\\Sysnative\\cmd.exe",
+                "${env:windir}\\System32\\cmd.exe"
+            ],
+            "args": [],
+            "icon": "terminal-cmd"
+        },
+        "Git Bash": {
+            "source": "Git Bash"
+        }
+    }
+}
+
+------------------------------------------------------
+
+keyof typeof locationDatas
+
+typeof 操作符用于获取一个变量或对象的类型
+keyof 操作符用于获取一个类型的所有键的类型
+
+const locationDatas = {
+    id: 1,
+    name: "New York",
+    country: "USA"
+};
+
+type LocationKeys = keyof typeof locationDatas; // "id" | "name" | "country"
+
+------------------------------------------------------
+
+文档片段（DocumentFragment）
+
+------------------------------------------------------
+
+visibility-hidden：元素隐藏，但元素仍旧存在，占用空间，页面中无法触发该元素的事件。
+display-none: 元素不会占用空间，在页面中不显示，子元素也不会显示。
+opacity-0: 元素透明度将为0，但元素仍然存在，绑定的事件仍旧有效仍可触发执行。
+
+------------------------------------已分享---------------------------------------
+
+默认情况下，如果不设置Cookie的path，默认是“/项目名/当前路径的上一层地址”，如：请求路径：/cookie/cookieDome/servlet/login，Cookie的请求路径：/cookie/cookieDome/servlet
+
+
+cookie的path：
+1、同名 cookie，不同 path，属不同的 cookie；
+2、path 属性值有大小写之分；
+3、path 只可写，不可读；
+4、path 只可写入当前url中存在的路径，例如：当前url：/cookie/cookieDome/servlet/login，只可写入“/”、“/cookie”、“/cookie/cookieDome”等；
+5、path 不可更改，如果我们试图更改 path，那么实际上我们是另外写了一个 cookie，而不是更改了 path 值；
+6、path 权限有继承性，假如指定了 /test/ 目录有权限读取某 cookie，那么 /test/ 之下的目录 /test/t/ 也有权限读取该 cookie；
+7、path 默认值：
+     路由跳转：是项目加载时地址的上一层地址，如：项目加载时路径：/cookie/cookieDome，Cookie的路径：/cookie，
+    	有可能存在加载地址是/cookie/cookieDome/servlet，然后路由跳转至/cookie/login，此时存入cookie1的path为/cookie/cookieDome，
+	但是仍然可以读取到cookie1，刷新页面后无法读取；
+     链接跳转：是当前地址的上一层地址
+   （ 此为实际测试情况：测试谷歌、火狐浏览器，测试四方mch及草料二维码）。
+
+document.cookie = 'testName=testCookie'
+document.cookie = 'testName=testCookie;path=/'
+document.cookie = 'testName=testCookie;path=/system'
+document.cookie // 输出 testName=testCookie; testName=testCookie;
+
+--------------------------------
+
+让对象变成一个可迭代对象：
+
+Object.prototype[Symbol.iterator] = function() {
+        const keys = Object.keys(this);
+        return {
+            next: () => {
+                if (keys.length) {
+                    return {
+                        value: keys.shift(),
+                        done: false
+                    }
+                }
+
+                return {
+                    value: undefined,
+                    done: true
+                }
+            }
+        }
+    }
+
+
+    const obj = {
+        name: ‘zhangsan’
+        height: 180,
+        age: 18
+    }
+
+    for (const iterator of obj) {
+        console.log(iterator)
+    }
+
+
+------------------------------------------------
+
+判断小数是否相等
+例如：0.1+0.2 !==0.3，因为计算机不能精确表示0.1， 0.2这样的浮点数，所以相加就不是0.3
+
+Number.EPSILON 是 JavaScript 中的一个非常小的常量，它代表了 1 与大于 1 的最小浮点数之间的差值。这个值是 2 的 -52 次方，大约是 2.2204460492503130808472633361816E-16。
+在 JavaScript 中，由于双精度浮点格式只有 52 位来表示尾数，因此最低位的有效值为 2 的 -52 次方。
+
+Number.EPSILON=(function(){   //解决兼容性问题
+    return Number.EPSILON?Number.EPSILON:Math.pow(2,-52);
+})();
+
+//上面是一个自调用函数，当JS文件刚加载到内存中，就会去判断并返回一个结果
+function numbersequal(a,b){ 
+    return Math.abs(a-b)<Number.EPSILON;
+}
+//接下来再判断   
+const a=0.1+0.2, b=0.3;
+console.log(numbersequal(a,b)); //这里就为true了
+
+------------------------------------------------------
+in运算符
+
+用于判断对象中是否存在某属性：
+const obj = { name: 'obj1', height: undefined };
+console.log('name' in obj);   // true
+console.log('weight' in obj);  // false
+
+对被删除或值为 undefined 的属性使用in：
+delete obj.name
+console.log('name' in obj);  // false
+console.log('height' in obj);  // true
+
+* 如果一个属性是从原型链上继承来的，in 运算符也会返回 true
+  如："toString" in {}; // 返回 true
+* Object.hasOwnProperty.call(obj, 'toString') // 返回false
+
+作用：哈希去重时，若去重队列中包含undefined、null等非真数据，可以用于判断队列中是否已经出现该值（作为Map的替代）
+
+------------------------------------------------------
+
+path prompt
+"path-prompt.pathMappings": {
+    "@": "${folder}/src",
+},
+
+------------------------------------------------------
+
+Omit类型：可以基于现有类型创建一个新类型
+
+interface PositionItem {
+    adContentNo: string;
+    clickJumpTypeList: string;
+    locationPicktureUrl: string;
+}
+
+interface FormItem extends Omit<PositionItem, 'clickJumpTypeList' | 'locationPicktureUrl'>  {
+    itemId: number;
+    clickJumpTypeList: number[];
+}
+
+基于类型PositionItem创建类型FormItem：
+新增了属性itemId；
+修改了属性clickJumpTypeList；
+删除了属性locationPicktureUrl；
+
+------------------------------------------------------
+
+MutationObserver api
+
+可以检测以下类型的DOM变化：
+1、子节点的增加或删除‌。
+‌2、元素属性的变化‌。
+‌3、文本内容的修改‌‌
+
+options是一个对象，用于定义要监听的变化类型：
+- childList: 监听子节点的添加或移除。
+- attributes: 监听属性的变化。
+- subtree 监听目标元素及其子节点的变化。
+- characterData: 监听文本节点的变化。
+- attributeFilter: 限制只监听特定的属性。
+
+回调属性包含：
+- type: 变化类型（`attributes`、`childList`、`characterData`）。
+- target: 发生变化的目标节点。
+- addedNodes 和 removedNodes: 子节点变化时的新节点和旧节点列表。
+- attributeName: 属性变化时的属性名称。
+- oldValue: 变化前的属性或文本内容。
+
+const targetNode = document.getElementById('app');
+const observer = new MutationObserver((mutationsList) => {
+  mutationsList.forEach((mutation) => {
+    if (mutation.type === 'childList') {
+      console.log('子节点发生变化');
+    }
+  });
+});
+observer.observe(targetNode, { childList: true });
+
+observer.disconnect(); // 取消监听
+
+------------------------------------------------------
+
+JSON.stringify()
+
+接收三个参数 JSON.stringify(value, replacer, space)
+value：要转换为 JSON 字符串的 JavaScript 值（通常是对象或数组）。
+replacer（可选）：可以是一个函数或数组，用于指定如何转换对象的属性。
+space（可选）：用于指定缩进的空格数或字符串，以便生成更易读的输出。
+
+使用 replacer 函数：
+
+const obj = { name: "小美", age: 25, city: "成都" };
+const jsonString = JSON.stringify(obj, (key, value) => {
+  if (key === "age") {
+    return undefined; // 排除 age 属性
+  }
+  return value;
+});
+console.log(jsonString); // 输出: {"name":"小美","city":"成都"}
+
+使用 replacer 数组：
+const replacer = ["name", "city"];
+const jsonString = JSON.stringify(obj, replacer);
+console.log(jsonString); // 输出: {"name":"小美","city":"成都"}
+
+使用 space 参数
+const obj = { name: "小美", age: 25 };
+const jsonString = JSON.stringify(obj, null, 2);
+console.log(jsonString);
+
+结合pre标签，可实现json格式化展示
+/*
+输出:
+{
+  "name": "小美",
+  "age": 25
+}
+*/
+
+----------------------------------------------------------
+
+Array.prototype.at()  (ES2022)
+
+作用：
+允许通过正数或负数索引来获取数组中的元素，负数索引从数组末尾开始倒数（从-1开始）
+
+示例：
+const lastEntry = [1, 2, 3, 4 , 5].at(-1); 
+console.log(lastEntry); // 5
+* 空数组情况输出 undefined
+
+兼容性：
+​​Chrome 92+​​ (2021年8月发布)
+​​Firefox 90+​​ (2021年7月发布)
+​​Safari 15.4+​​ (2022年3月发布)
+​​Edge 92+​​
+​​Node.js 16.6+​​（需启用 --harmony 标志）
+​​Node.js 18+​​ 默认支持
+Deno、Bun 等现代运行时均支持
+
+其他获取数组最后一位方法：
+1. 使用 length - 1 索引
+2. Array.prototype.slice()  // arr.slice(-1)[0]
+3. 使用 pop() 方法 // 会改变原数组
+
+------------------------------------------------------
+
+在JavaScript中，使用var声明的变量会被自动挂载到全局对象（在浏览器环境中是window）上，
+但它们的属性描述符（property descriptor）的configurable特性会被设置为false，这意味着这些属性不能被删除。
+
+原因分析：
+​​var声明的变量特性​​：
+当使用var在全局作用域声明变量时（例如var age = 18），它会自动成为window对象的属性。
+但这种属性的configurable特性为false，因此无法通过delete操作符删除。
+​​delete操作符的限制​​：
+delete只能删除configurable为true的属性。
+尝试删除configurable为false的属性时，delete会静默失败（非严格模式下）或抛出错误（严格模式下）。
+​​对比let/const​​：
+如果用let或const声明变量（例如let age = 18），它们不会成为window的属性，因此也不存在删除的问题。
+

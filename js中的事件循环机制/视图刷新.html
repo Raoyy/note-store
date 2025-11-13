@@ -1,0 +1,18 @@
+<div id="title" style="width: 100px;height: 100px;"></div>
+<script>
+  const wrapper = document.querySelector("#title");
+  let color = "red";
+  let count = 0;
+  const timer = setInterval(() => {
+    count++;
+    if (count > 100) clearInterval(timer);
+    if (color === "red") {
+      wrapper.style.background = "blue";
+      color = "blue";
+    } else {
+      wrapper.style.background = "red";
+      color = "red";
+    }
+  }, 17);
+//   }, 10);
+</script>

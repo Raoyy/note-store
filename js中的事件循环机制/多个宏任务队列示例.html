@@ -1,0 +1,32 @@
+<div id="title" style="width: 100px;height: 100px;"></div>
+
+<script>
+    const wrapper = document.querySelector("#title");
+    let color = "red";
+    let count = 0;
+
+    function rF() {
+        console.log('count', count);
+        count++;
+        if (count < 60) {
+            const a = requestAnimationFrame(() => {
+                if (color === "red") {
+                    wrapper.style.background = "blue";
+                    color = "blue";
+                } else {
+                    wrapper.style.background = "red";
+                    color = "red";
+                }
+                rF();
+            })
+        }
+    }
+    rF();
+
+    setTimeout(() => {
+        console.log('time', count);
+        for (let i = 0; i < 90000; i++) {
+            setTimeout(() => console.log('time', count), 0);
+        }
+    }, 0);
+</script>
